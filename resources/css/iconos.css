@@ -1,0 +1,86 @@
+.ico-menu-inicio {
+    background-image: url('../images/inicio-16x16.png') !important;
+}
+
+.ico-menu-inicio-medium {
+	margin-left: -4px;
+	margin-top: -2px;
+    background-image: url('../images/inicio-24x24.png') !important;
+}
+
+.ico-menu-salir {
+    background-image: url('../images/salir-16x16.png') !important;
+}
+
+/**/
+.ico-nuevo-small {
+	background-image: url('../images/nuevo-16x16.png') !important;
+}
+
+.ico-nuevo-medium {
+	background-image: url('../images/nuevo-24x24.png') !important;
+}
+
+.ico-nuevo-large {
+	background-image: url('../images/nuevo-32x32.png') !important;
+}
+
+/**/
+.ico-limpiar-small {
+	background-image: url('../images/limpiar-16x16.png') !important;
+}
+
+.ico-limpiar-medium {
+	background-image: url('../images/limpiar-24x24.png') !important;
+}
+
+.ico-limpiar-large {
+	background-image: url('../images/limpiar-32x32.png') !important;
+}
+
+/**/
+.ico-agregar-small {
+	background-image: url('../images/agregar-16x16.png') !important;
+}
+
+/**/
+.ico-aceptar-medium {
+	background-image: url('../images/aceptar-24x24.png') !important;
+}
+
+.ico-aceptar-large {
+	background-image: url('../images/aceptar-32x32.png') !important;
+}
+
+/**/
+.ico-cancelar-medium {
+	background-image: url('../images/cancelar-24x24.png') !important;
+}
+
+.ico-buscar-small {
+	background-image: url('../images/buscar-16x16.png') !important;
+}
+
+.ico-buscar-medium {
+	background-image: url('../images/buscar-24x24.png') !important;
+}
+
+.ico-editar-small {
+	background-image: url('../images/editar-16x16.png') !important;
+}
+
+.ico-editar-medium {
+	background-image: url('../images/editar-24x24.png') !important;
+}
+
+.ico-procesar-medium {
+	background-image: url('../images/procesar-24x24.png') !important;
+}
+
+.ico-remover-small {
+	background-image: url('../images/remover-16x16.png') !important;
+}
+
+.ico-remover-medium {
+	background-image: url('../images/remover-24x24.png') !important;
+}
