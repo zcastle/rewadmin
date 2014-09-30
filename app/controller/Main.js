@@ -15,6 +15,18 @@ Ext.define('rewadmin.controller.Main', {
 			},
 			'app-main menuitem': {
 				click: this.onClickMenuItem
+			},
+			'app-main buttongroup > button': {
+				click: this.onClickButtonMenu
+			},
+			'app-main button[name=btn-collapse]': {
+				click: this.onClickButtonCollapse
+			},
+			'#menumain': {
+				beforeexpand: this.onBeforeExpandMenu
+			},
+			'#TabMain': {
+				tabchange: this.onTabChange
 			}
 		});
 	},
@@ -22,7 +34,7 @@ Ext.define('rewadmin.controller.Main', {
 	},
 	onBeforeActivateRender: function() {
 		//console.log(rewadmin.AppGlobals.USUARIO.get('rol_id'));
-		var tbInicio = Ext.getCmp('tbInicio');
+		/*var tbInicio = Ext.getCmp('tbInicio');
 		var tbSalir = Ext.getCmp('tbSalir');
 		tbSalir.add({
             iconCls: 'ico-menu-salir',
@@ -30,7 +42,7 @@ Ext.define('rewadmin.controller.Main', {
                 text: 'Cerrar Sesion'
             }]
         });
-		this.getLauncherStore().load({
+		/*this.getLauncherStore().load({
 			id: rewadmin.AppGlobals.USUARIO.get('rol_id'),
 			callback: function(records, operation, success) {
 				var menu = Ext.create('Ext.menu.Menu');
@@ -46,7 +58,7 @@ Ext.define('rewadmin.controller.Main', {
 				});
 			},
 			scope: this
-		})
+		})*/
 	},
 	onAfterRendered: function(viewport) {
 		console.log('Sistema iniciado');
@@ -64,11 +76,30 @@ Ext.define('rewadmin.controller.Main', {
 			viewport.getLayout().setActiveItem(1);
 		}
 		//this.addTab('Guias', 'gridguia');
-		this.addTab('Productos', 'gridproductos');
+		//this.addTab('Productos', 'gridproductos');
 		//this.addTab('Categorias', 'gridcategorias');
+		//Ext.widget('winreporteventas').show();
 	},
 	onDataviewItemclick: function(view, record) {
 		this.addTab(record.get('titulo'), record.get('accion'));
+	},
+	addTabFromUrl: function(titulo, url) {
+		var mainTabs = Ext.getCmp('TabMain');
+		mainTabs.add({
+			//id: accion,
+			title: titulo,
+			layout: 'fit',
+			plain: true,
+	        items: {
+	            xtype: 'component',
+	            autoEl: {
+	                tag: 'iframe',
+	                headers: { 'Content-Type': 'application/pdf' },
+	                src: url
+	            }
+	        },
+			closable: true
+		}).show();
 	},
 	addTab: function(titulo, accion) {
 		var mainTabs = Ext.getCmp('TabMain');
@@ -78,8 +109,9 @@ Ext.define('rewadmin.controller.Main', {
                 return;
             }
         }
+        Ext.getCmp('titulo').setText(titulo);
 		mainTabs.add({
-			id: accion,
+			//id: accion,
 			title: titulo,
 			layout: 'fit',
 			items: Ext.widget(accion),
@@ -88,6 +120,40 @@ Ext.define('rewadmin.controller.Main', {
 		//mainTabs.setActiveTab(accion);
 	},
 	onClickMenuItem: function(item) {
-		this.addTab(item.text, item.action);
+		if(item.action){
+			if(item.action.substr(0, 3)=='win') {
+				//console.log(item.tag);
+				switch(item.tag) {
+					case 'ventas':
+						rewadmin.AppGlobals.REPORTE = rewadmin.AppGlobals.REPORTE_VENTAS;
+						break;
+					case 'familias':
+						rewadmin.AppGlobals.REPORTE = rewadmin.AppGlobals.REPORTE_FAMILIAS;
+						break;
+				}
+				Ext.widget(item.action).show();
+			} else {
+				this.addTab(item.text, item.action);
+			}
+		}
+	},
+	onClickButtonMenu: function(btn) {
+		//this.addTab(btn.text, btn.action);
+		Ext.getCmp('TabMain').removeAll(true);
+		Ext.getCmp('TabMain').add({xtype: btn.action});
+	},
+	onClickButtonCollapse: function() {
+		var menuMain = Ext.getCmp('menumain');
+		if(!menuMain.getCollapsed()){
+			menuMain.collapse();
+			menuMain.setTitle('M E N U');
+		}
+	},
+	onBeforeExpandMenu: function() {
+		var menuMain = Ext.getCmp('menumain');
+		menuMain.getHeader().hide();
+	},
+	onTabChange: function(tabPanel, newCard){
+		Ext.getCmp('titulo').setText(newCard.title);
 	}
 });

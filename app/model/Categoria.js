@@ -5,7 +5,7 @@ Ext.define('rewadmin.model.Categoria', {
     'nombre',
     {name: 'grupo_id', type: 'int'}, {name: 'grupo_name', persist: false},
     'orden',
-    {name: 'destino_id', type: 'int'}, {name: 'destino_name', persist: false},
+    {name: 'destino_id', type: 'int'}, {name: 'destino_name', persist: false}
     ],
     proxy: {
         type: 'rest',

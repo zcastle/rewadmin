@@ -37,9 +37,9 @@ Ext.define('rewadmin.model.Producto', {
             writeAllFields: true,
             encode: true,
             root: 'data'
-        },
+        }/*,
         headers: {
             user: rewadmin.AppGlobals.HTTP_USER
-        }
+        }*/
     }
 });

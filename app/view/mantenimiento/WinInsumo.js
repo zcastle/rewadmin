@@ -82,15 +82,15 @@ Ext.define("rewadmin.view.mantenimiento.WinInsumo", {
             }*/
         }],
         buttons: [{
-        	text: 'Aceptar',
-        	name: 'btnAceptar',
-        	iconCls: 'ico-aceptar-medium',
-            scale: 'medium'
+            text: 'Aceptar',
+            name: 'btnAceptar',
+            baseCls: 'rew-btn',
+            cls: 'btn-aceptar'
         }, {
-        	text: 'Cancelar',
-        	name: 'btnCancelar',
-        	iconCls: 'ico-cancelar-medium',
-            scale: 'medium'
+            text: 'Cancelar',
+            name: 'btnCancelar',
+            baseCls: 'rew-btn',
+            cls: 'btn-cancelar'
         }]
     }
 });

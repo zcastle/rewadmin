@@ -827,10 +827,74 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.window.Window": [
     "Ext.Window"
   ],
+  "rewadmin.AppGlobals": [],
   "rewadmin.Application": [],
+  "rewadmin.controller.Categoria": [],
+  "rewadmin.controller.Dashboard": [],
+  "rewadmin.controller.Guia": [],
+  "rewadmin.controller.GuiaBuscar": [],
+  "rewadmin.controller.Login": [],
   "rewadmin.controller.Main": [],
+  "rewadmin.controller.Producto": [],
+  "rewadmin.controller.ProductoBuscar": [],
+  "rewadmin.controller.Salida": [],
+  "rewadmin.controller.UnidadBuscar": [],
+  "rewadmin.controller.reportes.WinReporte": [],
+  "rewadmin.controller.reportes.WinReporteVentas": [],
+  "rewadmin.model.Almacen": [],
+  "rewadmin.model.Categoria": [],
+  "rewadmin.model.Cliente": [],
+  "rewadmin.model.Destino": [],
+  "rewadmin.model.DiasTrabajo": [],
+  "rewadmin.model.Grupo": [],
+  "rewadmin.model.GuiaCabecera": [],
+  "rewadmin.model.GuiaDetalle": [],
+  "rewadmin.model.Launcher": [],
+  "rewadmin.model.Producto": [],
+  "rewadmin.model.Receta": [],
+  "rewadmin.model.Resumen": [],
+  "rewadmin.model.ResumenSemana": [],
+  "rewadmin.model.TipoDocumento": [],
+  "rewadmin.model.TipoOperacion": [],
+  "rewadmin.model.Unidad": [],
+  "rewadmin.model.UnidadProducto": [],
+  "rewadmin.model.Usuario": [],
+  "rewadmin.store.Almacen": [],
+  "rewadmin.store.Categoria": [],
+  "rewadmin.store.Destino": [],
+  "rewadmin.store.DiasTrabajo": [],
+  "rewadmin.store.Grupo": [],
+  "rewadmin.store.GuiaBuscar": [],
+  "rewadmin.store.GuiaDetalle": [],
+  "rewadmin.store.Launcher": [],
+  "rewadmin.store.Meses": [],
+  "rewadmin.store.Producto": [],
+  "rewadmin.store.ProductoBuscar": [],
+  "rewadmin.store.Receta": [],
+  "rewadmin.store.Resumen": [],
+  "rewadmin.store.ResumenSemana": [],
+  "rewadmin.store.TipoDocumento": [],
+  "rewadmin.store.TipoOperacion": [],
+  "rewadmin.store.Unidad": [],
+  "rewadmin.store.UnidadBuscar": [],
+  "rewadmin.store.UnidadProducto": [],
+  "rewadmin.store.Usuario": [],
+  "rewadmin.view.Dashboard": [],
+  "rewadmin.view.LoginView": [],
   "rewadmin.view.Main": [],
-  "rewadmin.view.Viewport": []
+  "rewadmin.view.Viewport": [],
+  "rewadmin.view.almacen.GridGuia": [],
+  "rewadmin.view.almacen.WinGuiaBuscar": [],
+  "rewadmin.view.almacen.WinProductoBuscar": [],
+  "rewadmin.view.almacen.WinSalida": [],
+  "rewadmin.view.almacen.WinUnidadesBuscar": [],
+  "rewadmin.view.mantenimiento.GridCategorias": [],
+  "rewadmin.view.mantenimiento.GridProductos": [],
+  "rewadmin.view.mantenimiento.WinCategorias": [],
+  "rewadmin.view.mantenimiento.WinInsumo": [],
+  "rewadmin.view.mantenimiento.WinProductos": [],
+  "rewadmin.view.reportes.WinReporte": [],
+  "rewadmin.view.reportes.WinReporteVentas": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1817,12 +1881,104 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.window.Window": [
     "widget.window"
   ],
+  "rewadmin.AppGlobals": [],
   "rewadmin.Application": [],
+  "rewadmin.controller.Categoria": [],
+  "rewadmin.controller.Dashboard": [],
+  "rewadmin.controller.Guia": [],
+  "rewadmin.controller.GuiaBuscar": [],
+  "rewadmin.controller.Login": [],
   "rewadmin.controller.Main": [],
+  "rewadmin.controller.Producto": [],
+  "rewadmin.controller.ProductoBuscar": [],
+  "rewadmin.controller.Salida": [],
+  "rewadmin.controller.UnidadBuscar": [],
+  "rewadmin.controller.reportes.WinReporte": [],
+  "rewadmin.controller.reportes.WinReporteVentas": [],
+  "rewadmin.model.Almacen": [],
+  "rewadmin.model.Categoria": [],
+  "rewadmin.model.Cliente": [],
+  "rewadmin.model.Destino": [],
+  "rewadmin.model.DiasTrabajo": [],
+  "rewadmin.model.Grupo": [],
+  "rewadmin.model.GuiaCabecera": [],
+  "rewadmin.model.GuiaDetalle": [],
+  "rewadmin.model.Launcher": [],
+  "rewadmin.model.Producto": [],
+  "rewadmin.model.Receta": [],
+  "rewadmin.model.Resumen": [],
+  "rewadmin.model.ResumenSemana": [],
+  "rewadmin.model.TipoDocumento": [],
+  "rewadmin.model.TipoOperacion": [],
+  "rewadmin.model.Unidad": [],
+  "rewadmin.model.UnidadProducto": [],
+  "rewadmin.model.Usuario": [],
+  "rewadmin.store.Almacen": [],
+  "rewadmin.store.Categoria": [],
+  "rewadmin.store.Destino": [],
+  "rewadmin.store.DiasTrabajo": [],
+  "rewadmin.store.Grupo": [],
+  "rewadmin.store.GuiaBuscar": [],
+  "rewadmin.store.GuiaDetalle": [],
+  "rewadmin.store.Launcher": [],
+  "rewadmin.store.Meses": [],
+  "rewadmin.store.Producto": [],
+  "rewadmin.store.ProductoBuscar": [],
+  "rewadmin.store.Receta": [],
+  "rewadmin.store.Resumen": [],
+  "rewadmin.store.ResumenSemana": [],
+  "rewadmin.store.TipoDocumento": [],
+  "rewadmin.store.TipoOperacion": [],
+  "rewadmin.store.Unidad": [],
+  "rewadmin.store.UnidadBuscar": [],
+  "rewadmin.store.UnidadProducto": [],
+  "rewadmin.store.Usuario": [],
+  "rewadmin.view.Dashboard": [
+    "widget.dashboard"
+  ],
+  "rewadmin.view.LoginView": [
+    "widget.loginView"
+  ],
   "rewadmin.view.Main": [
     "widget.app-main"
   ],
-  "rewadmin.view.Viewport": []
+  "rewadmin.view.Viewport": [],
+  "rewadmin.view.almacen.GridGuia": [
+    "widget.gridguia"
+  ],
+  "rewadmin.view.almacen.WinGuiaBuscar": [
+    "widget.winguiabuscar"
+  ],
+  "rewadmin.view.almacen.WinProductoBuscar": [
+    "widget.winproductobuscar"
+  ],
+  "rewadmin.view.almacen.WinSalida": [
+    "widget.winsalida"
+  ],
+  "rewadmin.view.almacen.WinUnidadesBuscar": [
+    "widget.winunidadesbuscar"
+  ],
+  "rewadmin.view.mantenimiento.GridCategorias": [
+    "widget.gridcategorias"
+  ],
+  "rewadmin.view.mantenimiento.GridProductos": [
+    "widget.gridproductos"
+  ],
+  "rewadmin.view.mantenimiento.WinCategorias": [
+    "widget.wincategorias"
+  ],
+  "rewadmin.view.mantenimiento.WinInsumo": [
+    "widget.wininsumo"
+  ],
+  "rewadmin.view.mantenimiento.WinProductos": [
+    "widget.winproductos"
+  ],
+  "rewadmin.view.reportes.WinReporte": [
+    "widget.winreporte"
+  ],
+  "rewadmin.view.reportes.WinReporteVentas": [
+    "widget.winreporteventas"
+  ]
 });
 Ext.setVersion("ext-theme-base", "4.2.1");
 Ext.setVersion("ext-theme-classic", "4.2.1");

@@ -6,6 +6,7 @@ Ext.define('rewadmin.Application', {
     views: [
         'Main',
         'LoginView',
+        'Dashboard',
         'mantenimiento.GridProductos',
         'mantenimiento.WinProductos',
         'mantenimiento.GridCategorias',
@@ -14,18 +15,25 @@ Ext.define('rewadmin.Application', {
         'almacen.GridGuia',
         'almacen.WinProductoBuscar',
         'almacen.WinUnidadesBuscar',
-        'almacen.WinGuiaBuscar'
+        'almacen.WinGuiaBuscar',
+        'almacen.WinSalida',
+        'reportes.WinReporte',
+        'reportes.WinReporteVentas'
     ],
 
     controllers: [
+        'Dashboard',
         'Main',
         'Login',
         'Producto',
         'Categoria',
         'Guia',
+        'Salida',
         'ProductoBuscar',
         'UnidadBuscar',
-        'GuiaBuscar'
+        'GuiaBuscar',
+        'reportes.WinReporte',
+        'reportes.WinReporteVentas'
     ],
 
     stores: [
@@ -34,7 +42,6 @@ Ext.define('rewadmin.Application', {
 
     requires:[
         'rewadmin.AppGlobals',
-        //'rewadmin.Util',
         'Ext.layout.container.Fit',
         'Ext.layout.container.Card',
         'Ext.layout.container.Border',
@@ -45,14 +52,20 @@ Ext.define('rewadmin.Application', {
         'Ext.form.field.Checkbox',
         'Ext.form.field.Hidden',
         'Ext.form.field.Date',
+        'Ext.form.FieldContainer',
         'Ext.tab.Panel',
         'Ext.data.proxy.Rest',
         'Ext.view.View',
         'Ext.toolbar.Paging',
         'Ext.grid.column.Action',
         'Ext.grid.plugin.CellEditing',
-        //'Ext.grid.plugin.RowEditing',
-        'Ext.grid.column.RowNumberer'
+        'Ext.grid.column.RowNumberer',
+        'Ext.container.ButtonGroup',
+        'Ext.data.Store',
+        'Ext.chart.Chart',
+        'Ext.chart.series.Column',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Category'
     ]
 });
 

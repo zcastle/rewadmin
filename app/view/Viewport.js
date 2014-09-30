@@ -42,6 +42,6 @@ Ext.define('rewadmin.view.Viewport', {
             }]
         }]
     },{
-        xtype: 'app-main',
+        xtype: 'app-main'
     }]
 });

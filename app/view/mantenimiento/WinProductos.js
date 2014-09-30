@@ -7,6 +7,7 @@ Ext.define("rewadmin.view.mantenimiento.WinProductos", {
     //closable: false,
     width: 900,
     layout: 'fit',
+    border: false,
     items: {
         xtype: 'form',
         id: 'frmProductos',
@@ -66,6 +67,7 @@ Ext.define("rewadmin.view.mantenimiento.WinProductos", {
 	        },{
 	        	fieldLabel: 'Codigo',
 	        	name: 'codigo',
+	        	allowBlank: true,
 	        	width: 100
 	        },{
 	        	fieldLabel: 'Producto',
@@ -242,15 +244,18 @@ Ext.define("rewadmin.view.mantenimiento.WinProductos", {
 		    bbar: [{
 	            text: 'Agregar',
 	            name: 'btnAgregar',
-	            iconCls: 'ico-agregar-small'
+	            baseCls: 'rew-btn-small',
+            	cls: 'btn-nuevo'
 	        },{
 	            text: 'Editar',
 	            name: 'btnEditar',
-	            iconCls: 'ico-editar-small'
+	            baseCls: 'rew-btn-small',
+            	cls: 'btn-editar'
 	        },{
 	            text: 'Remover',
 	            name: 'btnRemover',
-	            iconCls: 'ico-remover-small'
+	            baseCls: 'rew-btn-small',
+            	cls: 'btn-remover'
 	        },{
 	        	xtype: 'container',
 	        	flex: 1
@@ -268,13 +273,13 @@ Ext.define("rewadmin.view.mantenimiento.WinProductos", {
         buttons: [{
         	text: 'Guardar',
         	name: 'btnGuardar',
-        	iconCls: 'ico-aceptar-medium',
-            scale: 'medium'
+        	baseCls: 'rew-btn',
+            cls: 'btn-aceptar'
         }, {
         	text: 'Cancelar',
         	name: 'btnCancelar',
-        	iconCls: 'ico-cancelar-medium',
-            scale: 'medium'
+        	baseCls: 'rew-btn',
+            cls: 'btn-cancelar'
         }]
     }
 });

@@ -134,207 +134,206 @@ Ext.define('rewadmin.view.almacen.GridGuia' ,{
         }]
     }],
     tbar: [{
-        xtype: 'form',
-        id: 'frmCabeceraGuia',
-        frame: true,
-        border: false,
-        style: 'border: 0;',
+        xtype: 'container',
         flex: 1,
-        layout: {
-            type: 'hbox',
-            align: 'stretch',
-            pack : 'start'
-        },
-        defaults: {
-            xtype: 'container',
-            defaults: {
-                allowBlank: false,
-                labelWidth: 90
-            }
-        },
+        layout: 'hbox',
         items: [{
-            xtype: 'hiddenfield',
-            name: 'id'
-        },{
-            xtype: 'hiddenfield',
-            name: 'usuario_id'
-        },{
+            xtype: 'form',
+            id: 'frmCabeceraGuia',
+            frame: true,
+            border: false,
+            style: 'border: 0;',
             flex: 1,
             layout: {
-                type: 'vbox',
+                type: 'hbox',
                 align: 'stretch',
                 pack : 'start'
             },
-            defaultType: 'textfield',
-            items: [{
+            defaults: {
                 xtype: 'container',
-                style: 'margin-bottom: 5px;',
-                layout: 'hbox',
                 defaults: {
                     allowBlank: false,
-                    labelWidth: 70
+                    labelWidth: 90
+                }
+            },
+            items: [{
+                xtype: 'hiddenfield',
+                name: 'id'
+            },{
+                xtype: 'hiddenfield',
+                name: 'usuario_id'
+            },{
+                flex: 1,
+                layout: {
+                    type: 'vbox',
+                    align: 'stretch',
+                    pack : 'start'
                 },
+                defaultType: 'textfield',
                 items: [{
-                    xtype: 'datefield',
-                    fieldLabel: 'Fecha',
-                    name: 'fecha',
-                    maxValue: new Date(),
-                    width: 165
+                    xtype: 'container',
+                    style: 'margin-bottom: 5px;',
+                    layout: 'hbox',
+                    defaults: {
+                        allowBlank: false,
+                        labelWidth: 70
+                    },
+                    items: [{
+                        xtype: 'datefield',
+                        fieldLabel: 'Fecha',
+                        name: 'fecha',
+                        maxValue: new Date(),
+                        width: 165
+                    },{
+                        xtype: 'container',
+                        width: 5
+                    },{
+                        xtype: 'combobox',
+                        name: 'tipo_documento_id',
+                        fieldLabel: 'T. Documento',
+                        labelWidth: 80,
+                        emptyText: 'Seleccionar',
+                        store: 'TipoDocumento',
+                        valueField: 'id',
+                        displayField: 'nombre',
+                        queryMode: 'local',
+                        editable: false,
+                        flex: 1
+                    }]
                 },{
                     xtype: 'container',
-                    width: 5
+                    style: 'margin-bottom: 5px;',
+                    layout: 'hbox',
+                    defaults: {
+                        allowBlank: false,
+                        labelWidth: 70
+                    },
+                    items: [{
+                        xtype: 'textfield',
+                        name: 'serie',
+                        fieldLabel: 'Nu. Serie',
+                        emptyText: 'Serie',
+                        hideTrigger: true,
+                        keyNavEnabled: false,
+                        mouseWheelEnabled: false,
+                        width: 165
+                    },{
+                        xtype: 'container',
+                        width: 5
+                    },{
+                        xtype: 'numberfield',
+                        name: 'numero',
+                        fieldLabel: 'Nu. Documento',
+                        labelWidth: 80,
+                        emptyText: 'Numero',
+                        hideTrigger: true,
+                        keyNavEnabled: false,
+                        mouseWheelEnabled: false,
+                        flex: 1
+                    }]
                 },{
                     xtype: 'combobox',
-                    name: 'tipo_documento_id',
-                    fieldLabel: 'T. Documento',
-                    labelWidth: 80,
+                    name: 'tipo_operacion_id',
+                    labelWidth: 70,
+                    fieldLabel: 'T. Operacion',
                     emptyText: 'Seleccionar',
-                    store: 'TipoDocumento',
+                    store: 'TipoOperacion',
                     valueField: 'id',
                     displayField: 'nombre',
                     queryMode: 'local',
-                    editable: false,
-                    flex: 1
+                    editable: false
                 }]
             },{
-                xtype: 'container',
-                style: 'margin-bottom: 5px;',
-                layout: 'hbox',
-                defaults: {
-                    allowBlank: false,
-                    labelWidth: 70
+                width: 5
+            },{
+                flex: 1,
+                layout: {
+                    type: 'vbox',
+                    align: 'stretch',
+                    pack : 'start'
                 },
+                defaultType: 'textfield',
                 items: [{
-                    xtype: 'textfield',
-                    name: 'serie',
-                    fieldLabel: 'Nu. Serie',
-                    emptyText: 'Serie',
-                    hideTrigger: true,
-                    keyNavEnabled: false,
-                    mouseWheelEnabled: false,
-                    width: 165
-                },{
                     xtype: 'container',
-                    width: 5
+                    style: 'margin-bottom: 5px;',
+                    layout: 'hbox',
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Proveedor',
+                        labelWidth: 70,
+                        name: 'txtRuc',
+                        emptyText: 'RUC',
+                        enableKeyEvents: true,
+                        width: 165,
+                        //vtype: 'RUC',
+                        maskRe : /^[0-9]$/,
+                        maxLength: 11
+                    },{
+                        xtype: 'container',
+                        width: 5
+                    },{
+                        xtype: 'displayfield',
+                        name: 'txtComercial',
+                        style: {
+                            border: '1px solid #ccc'
+                        },
+                        flex: 1
+                    },{
+                        xtype: 'hiddenfield',
+                        name: 'cliente_proveedor_id'
+                    }]
                 },{
-                    xtype: 'numberfield',
-                    name: 'numero',
-                    fieldLabel: 'Nu. Documento',
-                    labelWidth: 80,
-                    emptyText: 'Numero',
-                    hideTrigger: true,
-                    keyNavEnabled: false,
-                    mouseWheelEnabled: false,
-                    flex: 1
-                }]
-            },{
-                xtype: 'combobox',
-                name: 'tipo_operacion_id',
-                labelWidth: 70,
-                fieldLabel: 'T. Operacion',
-                emptyText: 'Seleccionar',
-                store: 'TipoOperacion',
-                valueField: 'id',
-                displayField: 'nombre',
-                queryMode: 'local',
-                editable: false,
-            }]
-        },{
-            width: 5
-        },{
-            flex: 1,
-            layout: {
-                type: 'vbox',
-                align: 'stretch',
-                pack : 'start'
-            },
-            defaultType: 'textfield',
-            items: [{
-                xtype: 'container',
-                style: 'margin-bottom: 5px;',
-                layout: 'hbox',
-                items: [{
-                    xtype: 'textfield',
-                    fieldLabel: 'Proveedor',
+                    xtype: 'combobox',
+                    name: 'almacen_id',
+                    allowBlank: true,
                     labelWidth: 70,
-                    name: 'txtRuc',
-                    emptyText: 'RUC',
-                    enableKeyEvents: true,
-                    width: 165,
-                    //vtype: 'RUC',
-                    maskRe : /^[0-9]$/,
-                    maxLength: 11
+                    fieldLabel: 'Almacen',
+                    emptyText: 'Seleccionar',
+                    store: 'Almacen',
+                    valueField: 'id',
+                    displayField: 'nombre',
+                    queryMode: 'local',
+                    editable: false
                 },{
-                    xtype: 'container',
-                    width: 5
-                },{
-                    xtype: 'displayfield',
-                    name: 'txtComercial',
-                    style: {
-                        border: '1px solid #ccc'
-                    },
+                    xtype: 'textfield',
+                    labelWidth: 70,
+                    allowBlank: true,
+                    name: 'documento_relacionado',
+                    fieldLabel: 'Relacionado',
+                    emptyText: 'Serie - Numero',
                     flex: 1
-                },{
-                    xtype: 'hiddenfield',
-                    name: 'cliente_proveedor_id'
                 }]
             },{
-                xtype: 'combobox',
-                name: 'almacen_id',
-                allowBlank: true,
-                labelWidth: 70,
-                fieldLabel: 'Almacen',
-                emptyText: 'Seleccionar',
-                store: 'Almacen',
-                valueField: 'id',
-                displayField: 'nombre',
-                queryMode: 'local',
-                editable: false,
+                width: 5
             },{
-                xtype: 'textfield',
-                labelWidth: 70,
-                allowBlank: true,
-                name: 'documento_relacionado',
-                fieldLabel: 'Relacionado',
-                emptyText: 'Serie - Numero',
-                flex: 1
-            }]
-        },{
-            width: 5
-        },{
-            xtype: 'textareafield',
-            name: 'observacion',
-            flex: 1,
-            labelAlign: 'top',
-            emptyText: 'Observacion'
+                xtype: 'textareafield',
+                name: 'observacion',
+                flex: 1,
+                emptyText: 'Observacion'
 
+            }]
         }]
     }],
     bbar: [{
-        xtype: 'container',
-        flex: 1,
-        defaultType: 'button',
-        items: [{
-            text: 'Nuevo',
-            name: 'btnNuevo',
-            scale: 'medium',
-            iconCls: 'ico-nuevo-medium'
-        },{
-            text: 'Editar',
-            name: 'btnEditar',
-            scale: 'medium',
-            iconCls: 'ico-editar-medium'
-        },{
-            text: 'Buscar',
-            name: 'btnBuscar',
-            scale: 'medium',
-            iconCls: 'ico-buscar-medium'
-        },{
-            text: 'Procesar',
-            name: 'btnProcesar',
-            scale: 'medium',
-            iconCls: 'ico-procesar-medium'
-        }]
+        text: 'Nuevo',
+        name: 'btnNuevo',
+        baseCls: 'rew-btn',
+        cls: 'btn-nuevo'
+    },{
+        text: 'Editar',
+        name: 'btnEditar',
+        baseCls: 'rew-btn',
+        cls: 'btn-editar'
+    },{
+        text: 'Buscar',
+        name: 'btnBuscar',
+        baseCls: 'rew-btn',
+        cls: 'btn-buscar'
+    },{
+        text: 'Procesar',
+        name: 'btnProcesar',
+        baseCls: 'rew-btn',
+        cls: 'btn-procesar'
     },{
         xtype: 'container',
         id: 'totales',

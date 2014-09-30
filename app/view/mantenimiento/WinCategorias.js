@@ -52,7 +52,7 @@ Ext.define("rewadmin.view.mantenimiento.WinCategorias", {
 		        displayField: 'nombre',
 		        queryMode: 'local',
 		        editable: false,
-		        flex: 1,
+		        flex: 1
         	},{
         		xtype: 'container',
         		flex: 0,
@@ -67,15 +67,15 @@ Ext.define("rewadmin.view.mantenimiento.WinCategorias", {
         	}]
         }],
         buttons: [{
-        	text: 'Guardar',
-        	name: 'btnGuardar',
-        	iconCls: 'ico-aceptar-medium',
-            scale: 'medium'
+            text: 'Guardar',
+            name: 'btnGuardar',
+            baseCls: 'rew-btn',
+            cls: 'btn-aceptar'
         }, {
-        	text: 'Cancelar',
-        	name: 'btnCancelar',
-        	iconCls: 'ico-cancelar-medium',
-            scale: 'medium'
+            text: 'Cancelar',
+            name: 'btnCancelar',
+            baseCls: 'rew-btn',
+            cls: 'btn-cancelar'
         }]
     }
 });

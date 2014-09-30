@@ -38,6 +38,9 @@
     },
     "{viewFileName}.js.tpl.merge": {
       "acde5ea901286ca2f976bcddea23e159dbaa0e6f": "eJxzrSjRS0lNy8xL1VCqTiwo8EvMTa3VK8tMLderBpFgvpKOQjWXAhCkVpSk5qVYKai7ArU55+cW5Oel5pWo64AlM0pyc4BSHqk5Ofk6CuH5RTkpiorqXLWa1gDU/CBX"
+    },
+    "development.properties.merge": {
+      "c45c602c9b6f6f73cace183e9f0bf09c00a3ccf6": "eJytkUuOAjEMBfec4one9w24wyy4QFDc0xbBjhyTEbcfp0F89mRny6l6liccvvl2E44rNyxcCNW0c6aGJNBOZlGgKotjUUOmJV2LoyfjdCoxFx0WymBBgJyas/zOj7k2B6+SOVObw0JtMzw6SEZQKTfwpap5UP5WEpyuXHJQgjecvhL2mToVrRcS34Oks6mMYt5NMfbzYr7l8edWns5DzGrst22vu+QtXjR8BAraFqloyoEZAT7l28cW3i9f4R+b7pUs"
     }
   },
   "targets": {
@@ -332,11 +335,11 @@
       "version": "b092f4aad11d2f7eaab5ce3e2dcc2fc3134f3188",
       "parameters": {
         "appName": "rewadmin",
-        "controllerName": "Main",
         "controllerFileName": "Main",
-        "name": "rewadmin",
+        "controllerName": "Main",
         "controllerNamespace": "rewadmin.controller",
-        "library": "all"
+        "library": "all",
+        "name": "rewadmin"
       }
     },
     "app/view/WinProductos.js": {
@@ -344,9 +347,9 @@
       "version": "acde5ea901286ca2f976bcddea23e159dbaa0e6f",
       "parameters": {
         "appName": "rewadmin",
-        "viewName": "WinProductos",
         "name": "WinProductos",
-        "viewFileName": "WinProductos"
+        "viewFileName": "WinProductos",
+        "viewName": "WinProductos"
       }
     },
     "app/view/mantenimiento/WinProductos.js": {
@@ -354,9 +357,35 @@
       "version": "acde5ea901286ca2f976bcddea23e159dbaa0e6f",
       "parameters": {
         "appName": "rewadmin",
-        "viewName": "mantenimiento.WinProductos",
         "name": "mantenimiento.WinProductos",
-        "viewFileName": "mantenimiento/WinProductos"
+        "viewFileName": "mantenimiento/WinProductos",
+        "viewName": "mantenimiento.WinProductos"
+      }
+    },
+    ".sencha/app/development.properties": {
+      "source": "development.properties.merge",
+      "version": "c45c602c9b6f6f73cace183e9f0bf09c00a3ccf6",
+      "parameters": {
+        "appControllers": "",
+        "appModels": "",
+        "appName": "rewadmin",
+        "appStores": "",
+        "appViews": "",
+        "controllerFileName": "Main",
+        "controllerName": "Main",
+        "controllerNamespace": "rewadmin.controller",
+        "frameworkName": "ext",
+        "frameworkPath": "ext",
+        "library": "all",
+        "modelNamespace": "rewadmin.model",
+        "name": "rewadmin",
+        "packagesRelPath": "ext/packages",
+        "senchadir": ".sencha",
+        "themeName": "default",
+        "uniqueId": "50157053-6b04-4981-b27a-be69ecfa310d",
+        "viewFileName": "Main",
+        "viewName": "Main",
+        "viewNamespace": "rewadmin.view"
       }
     }
   }

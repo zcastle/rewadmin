@@ -1,2 +1,2 @@
 // @tag full-page
-// @require /var/www/rewadmin/app.js
+// @require /var/www/html/rewadmin/app.js

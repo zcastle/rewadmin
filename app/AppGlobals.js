@@ -1,18 +1,13 @@
 Ext.define('rewadmin.AppGlobals', {
     singleton: true,
-    //HOST: 'services/',
-    //HOST: 'http://192.168.0.10/rewservices/',
-    //HOST: 'http://192.168.1.5/rewservices/',
-    //HOST: 'http://localhost/rewservices/',
-    //HOST: 'http://services.openbusiness.pe/',
-    //HOST: 'http://192.168.1.5:2385/',
-    HOST: 'http://localhost:2385/',
-    DEBUG: true,
+    //HOST: 'http://192.168.1.6:2385/',
+    HOST: 'http://services.openbusiness.pe/',
+    DEBUG: false,
     IGV: 18,
     TIPO_CAMBIO_COMPRA: 2.65,
     TIPO_CAMBIO_VENTA: 2.60,
     CIA: '06',
-    NOMBRE_COMERCIAL: 'EMPRESA',
+    NOMBRE_COMERCIAL: 'DOGIA',
     RAZON_SOCIAL: 'EMPRESA SA',
     CO_USUARIO: 'ADMIN',
     ROL_ACTIVO: 'ADMIN',
@@ -29,5 +24,8 @@ Ext.define('rewadmin.AppGlobals', {
     TIPO_DOCUMENTO_ID_DEFAULT: 2,
     TIPO_OPERACION_ID_DEFAULT: 2,
     ALMACEN_ID_DEFAULT: 1,
-    HTTP_USER: 'ADMIN-WEB'
+    HTTP_USER: 'ADMIN-WEB',
+    REPORTE_VENTAS: Array('Reporte de Ventas', 'ventas'),
+    REPORTE_FAMILIAS: Array('Reporte de Ventas X Familias', 'familias'),
+    REPORTE: null
 });

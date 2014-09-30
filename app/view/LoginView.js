@@ -21,21 +21,36 @@ Ext.define('rewadmin.view.LoginView', {
         margin: '0 0 20',
         src: 'resources/images/logo-250x47.png',
         width: 250,
-        height: 47,
+        height: 47
     },{
         xtype: 'textfield',
         id: 'txtUsuario',
         emptyText: 'Usuario',
-        fieldStyle: 'border-top: 0; border-right: 0; border-left: 0; margin-top: 10px; margin-bottom: 10px;'
+        height: 30
+        //cls: 'field-login'
+        //fieldStyle: 'border-top: 0; border-right: 0; border-left: 0; margin-top: 10px; margin-bottom: 10px; height: 30px !important'
+        /*
+        fieldStyle: {
+            'border-top': '0',
+            'border-right': '0',
+            'border-left': '0',
+            'margin-top': '10px',
+            'margin-bottom': '10px',
+            'height': '30px !important'
+        }
+        */
     },{
         xtype: 'textfield',
         id: 'txtClave',
         inputType: 'password',
         emptyText: 'Clave',
-        fieldStyle: 'border-top: 0; border-right: 0; border-left: 0;'
+        height: 30
+        //fieldStyle: 'border-top: 0; border-right: 0; border-left: 0;'
     },{
         xtype: 'button',
         text: 'Ingresar',
-        width: 100
+        //width: 100,
+        baseCls: 'rew-btn',
+        cls: 'btn-nuevo'
     }]
 });
