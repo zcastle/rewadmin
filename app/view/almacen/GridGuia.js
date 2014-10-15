@@ -281,6 +281,12 @@ Ext.define('rewadmin.view.almacen.GridGuia' ,{
                     },{
                         xtype: 'hiddenfield',
                         name: 'cliente_proveedor_id'
+                    },{
+                        xtype: 'button',
+                        text: '+',
+                        name: 'btnNuevoProveedor',
+                        baseCls: 'rew-btn-small',
+                        cls: 'btn-nuevo'
                     }]
                 },{
                     xtype: 'combobox',

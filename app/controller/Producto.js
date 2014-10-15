@@ -1,20 +1,39 @@
 Ext.define('rewadmin.controller.Producto', {
     extend: 'Ext.app.Controller',
     models: ['Producto'],
-    stores: ['Producto', 'Grupo', 'Categoria', 'Destino', 'Receta', 'Almacen', 'UnidadProducto'],
+    stores: ['Producto', 'Grupo', 'Categoria', 'Destino', 'Receta', 'Almacen', 'UnidadProducto', 'Unidad', 'UnidadType'],
     refs: [{
 		ref: 'form',
 		selector: '#frmProductos'
+	},{
+		ref: 'grid',
+		selector: 'gridproductos'
+	},{
+		ref: 'txtBuscar',
+		selector: 'gridproductos textfield[name=txtBuscar]'
+	},{
+		ref: 'cboCategorias',
+		selector: 'gridproductos combobox[name=cboCategorias]'
+	},{
+		ref: 'cboGrupos',
+		selector: 'gridproductos combobox[name=cboGrupo]'
 	}],
     init: function() {
 		this.control({
 			'gridproductos': {
 				render: this.onGridRendered,
-				itemdblclick: this.onGridItemDblClick,
-				cellclick: this.onGridCellClick
+				itemdblclick: this.onGridItemDblClick/*,
+				cellclick: this.onGridCellClick*/
+			},
+			'gridproductos textfield[name=txtBuscar]': {
+				keypress: this.onKeyPressTxtBuscar,
+                keyup: this.onKeyUpTxtBuscar
 			},
 			'gridproductos button': {
 				click: this.onGridButtonClick
+			},
+			'gridproductos combobox': {
+				select: this.onComboboxSelect
 			},
 			'winproductos': {
 				afterlayout: this.onWinAfterLayout,
@@ -40,6 +59,7 @@ Ext.define('rewadmin.controller.Producto', {
 	showForm: function(record) {
 		var win = Ext.widget('winproductos');
 		this.getForm().loadRecord(record);
+		this.getRecetaStore().removeAll();
 		win.show();
 	},
 	onWinBuscarRender: function(win) {
@@ -62,29 +82,42 @@ Ext.define('rewadmin.controller.Producto', {
             win.close();
         }, this);
         btnAceptar.addListener('click', function(){
-            var record = this.getGrid().getSelectionModel().selected.items[0];
+            var record = gridBuscar.getSelectionModel().selected.items[0];
             this.btnAgregarOk(record);
             win.close();
         }, this);
 	},
 	onWinInsumo: function(win) {
 		this.getAlmacenStore().load();
+		var form = win.down('form');
 		var btnAceptar = win.down('button[name=btnAceptar]');
 		var btnCancelar = win.down('button[name=btnCancelar]');
-		var cboUnidad = win.down('combobox[name=unidad_type]');
+		var cboUnidad = win.down('combobox[name=unidad_id]');
+		var cboUnidadType = win.down('combobox[name=unidad_type]');
 		var txtCantidad = win.down('numberfield[name=cantidad]');
 		var lblTotal = win.down('displayfield[name=total]');
 		var lblCosto = win.down('displayfield[name=costo]');
+
+		this.getUnidadStore().load({
+			callback: function() {
+				var record = this.getUnidadStore().getById(cboUnidad.getValue());
+				this.setTipoUnidad(cboUnidadType, record);
+				this.chageCostoTotal(form, cboUnidadType, lblCosto, lblTotal, txtCantidad, 1)
+			},
+			scope: this
+		});
+
 		btnAceptar.addListener('click', function(){
-            var form = win.down('form');
             var values = form.getValues();
             values.costo = lblCosto.getValue();
 			var insumo = form.getRecord();
 			values.almacen_name = form.down('combobox[name=almacen_id]').getRawValue();
+			values.unidad_id = form.down('combobox[name=unidad_id]').getValue();
 			values.unidad_name = form.down('combobox[name=unidad_type]').getRawValue();
+			var type = this.getUnidadTypeStore().getById(form.down('combobox[name=unidad_type]').getValue());
+			values.unidad_type = type.get('tipo');
 			insumo.set(values);
 			this.getRecetaStore().add(insumo);
-			console.log(insumo.get('producto_id'));
 			if (insumo.get('producto_id')) {
 				insumo.save({
 					callback: function(record, operation, success) {
@@ -104,20 +137,45 @@ Ext.define('rewadmin.controller.Producto', {
 		btnCancelar.addListener('click', function(){
             win.close();
         }, this);
+        //Pierde el foco
         txtCantidad.addListener('blur', function(txt){
-            var producto = win.down('form').getRecord();
-            var unidad = this.getUnidadProductoStore().getById(cboUnidad.getValue());
-            lblCosto.setValue(producto.get('costo')/unidad.get('cantidad'));
-            lblTotal.setValue(lblCosto.getValue()*txt.getValue());
-        }, this);
-        cboUnidad.addListener('afterrender', function(cbo){
-            cbo.setValue('mayor');
+            this.chageCostoTotal(form, cboUnidadType, lblCosto, lblTotal, txt, txt.getValue())
         }, this);
         cboUnidad.addListener('select', function(cbo, record){
-        	var producto = win.down('form').getRecord();
-            lblCosto.setValue(producto.get('costo')/record[0].get('cantidad'));
-            lblTotal.setValue(lblCosto.getValue()*txtCantidad.getValue());
+            this.setTipoUnidad(cboUnidadType, record[0]);
+			this.chageCostoTotal(form, cboUnidadType, lblCosto, lblTotal, txtCantidad, 1)
         }, this);
+        cboUnidadType.addListener('select', function(cbo, record){
+            this.chageCostoTotal(form, cboUnidadType, lblCosto, lblTotal, txtCantidad, record[0].get('cantidad'))
+        }, this);
+	},
+	setTipoUnidad: function(cboUnidadType, record) {
+		cboUnidadType.getStore().removeAll();
+		cboUnidadType.getStore().add({
+        	id: 1,
+        	tipo: 'mayor',
+        	nombre: record.get('mayor'),
+        	cantidad: 1
+        });
+        if(record.get('cantidad')>0){
+            cboUnidadType.getStore().add({
+            	id: 2,
+            	tipo: 'menor',
+            	nombre: record.get('menor'),
+            	cantidad: record.get('cantidad')
+            });
+        }
+        cboUnidadType.setValue(1);
+	},
+	chageCostoTotal: function(form, cboUnidadType, lblCosto, lblTotal, txtCantidad, cantidad){
+		var producto = form.getRecord();
+		if(cboUnidadType.getValue()==1){
+			lblCosto.setValue(producto.get('costo'));
+		} else {
+			var record = this.getUnidadTypeStore().getById(2);
+			lblCosto.setValue(producto.get('costo')/record.get('cantidad'));
+		}
+        lblTotal.setValue(lblCosto.getValue()*txtCantidad.getValue());
 	},
 	onWinAfterLayout: function() {
 		this.getForm().down('[name=codigo]').focus();
@@ -125,6 +183,47 @@ Ext.define('rewadmin.controller.Producto', {
 	onWinClose: function() {
 		this.getProductoStore().load();
 	},
+	onKeyPressTxtBuscar: function(text, key){
+        if(key.getKey()==key.ENTER && text.getValue().length>0){
+        	//console.log(this.getCboCategorias().getValue());
+        	//console.log(this.getCboGrupos().getValue());
+			this.buscar(text.getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+        }
+    },
+    onKeyUpTxtBuscar: function(text, key) {
+    	var grid = this.getGrid();
+        if((key.getKey() == key.BACKSPACE || key.getKey() == key.DELETE) && text.getValue().length == 0){
+            this.quitarBusqueda();
+        } else if(key.getKey() == key.DOWN) {
+        	var rowIndex = grid.store.indexOf(grid.getSelectionModel().selected.items[0]);
+        	grid.getSelectionModel().select(rowIndex+1);
+        	grid.getView().focus();
+        }
+    },
+    buscar: function(text, categoria_id, grupo_id) {
+    	text = text || null;
+    	categoria_id = categoria_id || 0;
+    	grupo_id = grupo_id || 0;
+    	//return;
+    	var urlOriginal = this.getProductoStore().proxy.url;
+		//this.getProductoStore().proxy.url = urlOriginal+'/buscar/'+text+'/'+categoria_id+'/'+grupo_id;
+		this.getProductoStore().load({
+			url: urlOriginal+'/buscar/'+text+'/'+categoria_id+'/'+grupo_id,
+		    callback: function(records, operation, success) {
+		    	this.getProductoStore().proxy.url = urlOriginal;
+		        this.getGrid().getSelectionModel().select(0);
+		    },
+		    scope: this
+		});
+    },
+    quitarBusqueda: function(){
+    	this.getProductoStore().load({
+		    scope: this,
+		    callback: function(records, operation, success) {
+		        this.getGrid().getSelectionModel().select(0);
+		    }
+		});
+    },
 	onGridButtonClick: function(btn) {
 		switch(btn.name) {
 			case 'btnNuevo':
@@ -140,7 +239,39 @@ Ext.define('rewadmin.controller.Producto', {
 					'serv': 'S'
 				}));
 				break;
+			case 'btnEditar':
+				var record = this.getGrid().getSelectionModel().selected.items[0]
+				if(record!=undefined){
+					this.onGridItemDblClick(this.getGrid(), record);
+				}
+				break;
+			case 'btnRemover':
+				var record = this.getGrid().getSelectionModel().selected.items[0]
+				if(record!=undefined){
+					Ext.Msg.confirm(rewadmin.AppGlobals.TITULO_MENSAJE, 'Estas seguro de querer remover al producto: <span style=color:red; font-weidth: bold>' + record.get('nombre') + '</span>?', function(btn){
+		                if(btn=='yes'){
+		                	this.getProductoStore().remove(record);
+		                    record.destroy();
+		                }
+		            }, this);
+				}
+				break;
+			case 'btnBorrarTxt':
+				this.getTxtBuscar().setValue('');
+				this.buscar(this.getTxtBuscar().getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+				break;
+			case 'btnBorrarCboCategorias':
+				this.getCboCategorias().clearValue();
+				this.buscar(this.getTxtBuscar().getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+				break;
+			case 'btnBorrarCboGrupo':
+				this.getCboGrupos().clearValue();
+				this.buscar(this.getTxtBuscar().getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+				break;
 		}
+	},
+	onComboboxSelect: function(cbo, record){
+		this.buscar(this.getTxtBuscar().getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
 	},
 	onGridItemDblClick: function(grid, record) {
 		var urlOriginal = this.getRecetaStore().proxy.url;
@@ -154,7 +285,7 @@ Ext.define('rewadmin.controller.Producto', {
 		});
 		this.showForm(record);
 	},
-	onGridCellClick: function(grid, td, columnIndex, record) {
+	/*onGridCellClick: function(grid, td, columnIndex, record) {
 		var columna = grid.up('grid').columns[columnIndex].name;
         var nombre = record.get('nombre');
         if(columna == 'actionEditar') {
@@ -167,11 +298,14 @@ Ext.define('rewadmin.controller.Producto', {
                 }
             }, this);
         }
-	},
+	},*/
 	onWinButtonClick: function(btn) {
 		switch(btn.name) {
 			case 'btnGuardar':
 				this.guardar(btn);
+				break;
+			case 'btnGuardarNuevo':
+				this.guardar(btn, true);
 				break;
 			case 'btnCancelar':
 				btn.up('window').close();
@@ -197,7 +331,8 @@ Ext.define('rewadmin.controller.Producto', {
 		}));
 		winInsumo.show();
 	},
-	guardar: function(btn){
+	guardar: function(btn, nuevo){
+		nuevo = nuevo || false;
 		if (this.getForm().isValid()) {
 			var values = this.getForm().getValues();
 			var record = this.getForm().getRecord();
@@ -214,7 +349,22 @@ Ext.define('rewadmin.controller.Producto', {
 								if(success) {
 									var obj = Ext.decode(operation.response.responseText);
 									if(!obj.error) {
-										btn.up('window').close();
+										if(!nuevo){
+											btn.up('window').close();
+										} else {
+											this.getForm().loadRecord(Ext.create('rewadmin.model.Producto', {
+												'grupo_id': values.grupo_id,
+												'categoria_id': values.categoria_id,
+												'destino_id': rewadmin.AppGlobals.DESTINO_ID_DEFAULT,
+												'centrocosto_id': rewadmin.AppGlobals.USUARIO.get('centrocosto_id'),
+												'usuario_id': rewadmin.AppGlobals.USUARIO.get('id'),
+												'stock_min': 0,
+												'stock_max': 0,
+												'igv': 'S',
+												'serv': 'S'
+											}));
+											this.getRecetaStore().removeAll();
+										}
 							        } else {
 							        	Ext.Msg.alert(rewadmin.AppGlobals.TITULO_MENSAJE, obj.message, function(){
 							        		this.getForm().down('[name=codigo]').focus();

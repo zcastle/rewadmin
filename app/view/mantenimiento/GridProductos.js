@@ -23,7 +23,7 @@ Ext.define('rewadmin.view.mantenimiento.GridProductos' ,{
     },{
         header: 'Grupo',
         dataIndex: 'grupo_name',
-        width: 100
+        width: 200
     }/*,{
         xtype: 'actioncolumn',
         name: 'actionEditar',
@@ -61,6 +61,10 @@ Ext.define('rewadmin.view.mantenimiento.GridProductos' ,{
             enableKeyEvents: true,
             flex: 1
         },{
+            xtype: 'button',
+            name: 'btnBorrarTxt',
+            iconCls: 'ico-limpiar-small'
+        },{
             xtype: "combobox",
             name: "cboCategorias", 
             fieldLabel: "Categoria",
@@ -73,6 +77,10 @@ Ext.define('rewadmin.view.mantenimiento.GridProductos' ,{
             labelWidth: 55,
             width: 250,
             style: 'margin-left: 5px;'
+        },{
+            xtype: 'button',
+            name: 'btnBorrarCboCategorias',
+            iconCls: 'ico-limpiar-small'
         },{
             xtype: "combobox",
             name: "cboGrupo",
@@ -88,6 +96,7 @@ Ext.define('rewadmin.view.mantenimiento.GridProductos' ,{
             style: 'margin-left: 5px;'
         },{
             xtype: 'button',
+            name: 'btnBorrarCboGrupo',
             iconCls: 'ico-limpiar-small'
         }]
     }],

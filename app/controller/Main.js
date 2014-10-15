@@ -75,7 +75,7 @@ Ext.define('rewadmin.controller.Main', {
 			});
 			viewport.getLayout().setActiveItem(1);
 		}
-		//this.addTab('Guias', 'gridguia');
+		this.addTab('Guias', 'gridguia');
 		//this.addTab('Productos', 'gridproductos');
 		//this.addTab('Categorias', 'gridcategorias');
 		//Ext.widget('winreporteventas').show();

@@ -156,14 +156,15 @@
 }*/
 
 .rew-btn {
-	width: 100px;
-	padding: 10px 0;
+	min-width: 100px;
+	padding: 10px 10px;
 	text-align: center;
 }
 
 .rew-btn-small {
-	width: 60px;
-	padding: 6px 0;
+	min-width: 30px;
+	min-height: 22px;
+	padding: 0.3em 0.3em;
 	text-align: center;
 }
 
@@ -177,7 +178,7 @@
 	cursor: pointer;
 }
 
-.rew-btn:active, .rew-btn-small:hover, .rew-btn-medium:hover {
+.rew-btn:active, .rew-btn-small:active, .rew-btn-medium:active {
 	border: 1px solid #ccc;
 }
 

@@ -26,6 +26,16 @@ Ext.define("rewadmin.view.mantenimiento.WinInsumo", {
         	name: 'insumo_name',
         	selectOnFocus: true
         },{
+            xtype: 'combobox',
+            fieldLabel: 'Unidad',
+            name: 'unidad_id',
+            emptyText: 'Seleccionar',
+            store: 'Unidad',
+            valueField: 'id',
+            displayField: 'mayor',
+            queryMode: 'local',
+            editable: false
+        },{
             xtype: 'container',
             layout: 'hbox',
             fieldDefaults: {
@@ -47,7 +57,7 @@ Ext.define("rewadmin.view.mantenimiento.WinInsumo", {
                 xtype: 'combobox',
                 name: 'unidad_type',
                 emptyText: 'Seleccionar',
-                store: 'UnidadProducto',
+                store: 'UnidadType',
                 valueField: 'id',
                 displayField: 'nombre',
                 queryMode: 'local',

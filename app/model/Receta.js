@@ -6,7 +6,7 @@ Ext.define('rewadmin.model.Receta', {
     {name: 'insumo_id', type: 'int'}, 
     {name: 'insumo_name', persist: false}, 
     {name: 'cantidad', type: 'float'}, 
-    {name: 'unidad_id', type: 'int', persist: false}, 
+    {name: 'unidad_id', type: 'int'}, 
     'unidad_type', 
     {name: 'unidad_name', persist: false},
     {name: 'costo', type: 'float', persist: false}, 

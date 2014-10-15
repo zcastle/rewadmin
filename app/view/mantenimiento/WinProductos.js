@@ -275,7 +275,12 @@ Ext.define("rewadmin.view.mantenimiento.WinProductos", {
         	name: 'btnGuardar',
         	baseCls: 'rew-btn',
             cls: 'btn-aceptar'
-        }, {
+        },{
+        	text: 'Guardar+Nuevo',
+        	name: 'btnGuardarNuevo',
+        	baseCls: 'rew-btn',
+            cls: 'btn-editar'
+        },{
         	text: 'Cancelar',
         	name: 'btnCancelar',
         	baseCls: 'rew-btn',
