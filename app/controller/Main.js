@@ -74,11 +74,11 @@ Ext.define('rewadmin.controller.Main', {
 				rol_id: 1
 			});
 			viewport.getLayout().setActiveItem(1);
+			this.addTab('Guias', 'gridguia');
+			//this.addTab('Productos', 'gridproductos');
+			//this.addTab('Categorias', 'gridcategorias');
+			//Ext.widget('winreporteventas').show();
 		}
-		this.addTab('Guias', 'gridguia');
-		//this.addTab('Productos', 'gridproductos');
-		//this.addTab('Categorias', 'gridcategorias');
-		//Ext.widget('winreporteventas').show();
 	},
 	onDataviewItemclick: function(view, record) {
 		this.addTab(record.get('titulo'), record.get('accion'));

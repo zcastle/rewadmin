@@ -17,6 +17,9 @@ Ext.define('rewadmin.controller.Producto', {
 	},{
 		ref: 'cboGrupos',
 		selector: 'gridproductos combobox[name=cboGrupo]'
+	},{
+		ref: 'gridReceta',
+		selector: 'winproductos grid'
 	}],
     init: function() {
 		this.control({
@@ -39,12 +42,15 @@ Ext.define('rewadmin.controller.Producto', {
 				afterlayout: this.onWinAfterLayout,
 				close: this.onWinClose
 			},
+			'winproductos grid': {
+				itemdblclick: this.onGridRecetaItemDblClick
+			},
 			'winproductos button': {
 				click: this.onWinButtonClick
 			},
-			'winproductobuscar': {
+			/*'winproductobuscar': {
 				render: this.onWinBuscarRender
-			},
+			},*/
 			'wininsumo': {
 				render: this.onWinInsumo
 			}
@@ -62,16 +68,17 @@ Ext.define('rewadmin.controller.Producto', {
 		this.getRecetaStore().removeAll();
 		win.show();
 	},
-	onWinBuscarRender: function(win) {
-		var btnAceptar = win.down('button[name=btnAceptar]');
-        var gridBuscar = win.down('grid');
+	onWinBuscar: function() {
+		var winBuscar = Ext.widget('winproductobuscar');
+		var btnAceptar = winBuscar.down('button[name=btnAceptar]');
+        var gridBuscar = winBuscar.down('grid');
         gridBuscar.getView().on('viewready', function(grd){
             var maps = new Ext.util.KeyMap(grd.getEl(), [{
                 key: Ext.EventObject.ENTER,
                 fn: function(){
                     var record = grd.getSelectionModel().selected.items[0];
                     this.btnAgregarOk(record);
-                    win.close();
+                    winBuscar.close();
                 },
                 scope: this
             }]);
@@ -79,13 +86,14 @@ Ext.define('rewadmin.controller.Producto', {
         }, this);
         gridBuscar.addListener('itemdblclick', function(grid, record){
             this.btnAgregarOk(record);
-            win.close();
+            winBuscar.close();
         }, this);
         btnAceptar.addListener('click', function(){
             var record = gridBuscar.getSelectionModel().selected.items[0];
             this.btnAgregarOk(record);
-            win.close();
+            winBuscar.close();
         }, this);
+        winBuscar.show();
 	},
 	onWinInsumo: function(win) {
 		this.getAlmacenStore().load();
@@ -117,11 +125,16 @@ Ext.define('rewadmin.controller.Producto', {
 			var type = this.getUnidadTypeStore().getById(form.down('combobox[name=unidad_type]').getValue());
 			values.unidad_type = type.get('tipo');
 			insumo.set(values);
-			this.getRecetaStore().add(insumo);
+			//console.log(insumo);
+			if(!insumo.get('id')){
+				this.getRecetaStore().add(insumo);
+			}
 			if (insumo.get('producto_id')) {
+				//console.log(insumo.get('producto_id'));
 				insumo.save({
 					callback: function(record, operation, success) {
 						if(success) {
+							//console.log(record);
 							insumo = record;
 							win.close();
 						} else {
@@ -181,29 +194,30 @@ Ext.define('rewadmin.controller.Producto', {
 		this.getForm().down('[name=codigo]').focus();
 	},
 	onWinClose: function() {
-		this.getProductoStore().load();
+		//this.getProductoStore().load();
+		this.buscar();
 	},
 	onKeyPressTxtBuscar: function(text, key){
         if(key.getKey()==key.ENTER && text.getValue().length>0){
-        	//console.log(this.getCboCategorias().getValue());
-        	//console.log(this.getCboGrupos().getValue());
-			this.buscar(text.getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+			this.buscar();
         }
     },
     onKeyUpTxtBuscar: function(text, key) {
     	var grid = this.getGrid();
         if((key.getKey() == key.BACKSPACE || key.getKey() == key.DELETE) && text.getValue().length == 0){
-            this.quitarBusqueda();
+            //this.quitarBusqueda();
+            this.buscar();
         } else if(key.getKey() == key.DOWN) {
         	var rowIndex = grid.store.indexOf(grid.getSelectionModel().selected.items[0]);
         	grid.getSelectionModel().select(rowIndex+1);
         	grid.getView().focus();
         }
     },
-    buscar: function(text, categoria_id, grupo_id) {
-    	text = text || null;
-    	categoria_id = categoria_id || 0;
-    	grupo_id = grupo_id || 0;
+    buscar: function() {
+    	text = this.getTxtBuscar().getValue() || null;
+    	categoria_id = this.getCboCategorias().getValue() || 0;
+    	grupo_id = this.getCboGrupos().getValue() || 0;
+    	//console.log('text: '+text+' categoria_id: '+categoria_id+' grupo_id: '+grupo_id);
     	//return;
     	var urlOriginal = this.getProductoStore().proxy.url;
 		//this.getProductoStore().proxy.url = urlOriginal+'/buscar/'+text+'/'+categoria_id+'/'+grupo_id;
@@ -229,7 +243,7 @@ Ext.define('rewadmin.controller.Producto', {
 			case 'btnNuevo':
 				this.showForm(Ext.create('rewadmin.model.Producto', {
 					'grupo_id': rewadmin.AppGlobals.GRUPO_ID_DEFAULT,
-					'categoria_id': 91,
+					'categoria_id': rewadmin.AppGlobals.CATEGORIA_ID_DEFAULT,
 					'destino_id': rewadmin.AppGlobals.DESTINO_ID_DEFAULT,
 					'centrocosto_id': rewadmin.AppGlobals.USUARIO.get('centrocosto_id'),
 					'usuario_id': rewadmin.AppGlobals.USUARIO.get('id'),
@@ -258,20 +272,20 @@ Ext.define('rewadmin.controller.Producto', {
 				break;
 			case 'btnBorrarTxt':
 				this.getTxtBuscar().setValue('');
-				this.buscar(this.getTxtBuscar().getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+				this.buscar();
 				break;
 			case 'btnBorrarCboCategorias':
 				this.getCboCategorias().clearValue();
-				this.buscar(this.getTxtBuscar().getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+				this.buscar();
 				break;
 			case 'btnBorrarCboGrupo':
 				this.getCboGrupos().clearValue();
-				this.buscar(this.getTxtBuscar().getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+				this.buscar();
 				break;
 		}
 	},
 	onComboboxSelect: function(cbo, record){
-		this.buscar(this.getTxtBuscar().getValue(), this.getCboCategorias().getValue(), this.getCboGrupos().getValue());
+		this.buscar();
 	},
 	onGridItemDblClick: function(grid, record) {
 		var urlOriginal = this.getRecetaStore().proxy.url;
@@ -284,6 +298,12 @@ Ext.define('rewadmin.controller.Producto', {
 		    }
 		});
 		this.showForm(record);
+	},
+	onGridRecetaItemDblClick: function(grid, record){
+		console.log(record);
+		var winInsumo = Ext.widget('wininsumo');
+		winInsumo.down('form').loadRecord(record);
+		winInsumo.show();
 	},
 	/*onGridCellClick: function(grid, td, columnIndex, record) {
 		var columna = grid.up('grid').columns[columnIndex].name;
@@ -311,7 +331,26 @@ Ext.define('rewadmin.controller.Producto', {
 				btn.up('window').close();
 				break;
 			case 'btnAgregar':
-				Ext.widget('winproductobuscar').show();
+				this.onWinBuscar();
+				break;
+			case 'btnEditar':
+				var record = this.getGridReceta().getSelectionModel().selected.items[0]
+				if(record!=undefined){
+					this.onGridRecetaItemDblClick(this.getGridReceta(), record);
+				}
+				break;
+			case 'btnRemover':
+				var record = this.getGridReceta().getSelectionModel().selected.items[0]
+				if(record!=undefined){
+					Ext.Msg.confirm(rewadmin.AppGlobals.TITULO_MENSAJE, 'Estas seguro de querer remover la receta: <span style=color:red; font-weidth: bold>' + record.get('insumo_name') + '</span>?', function(btn){
+		                if(btn=='yes'){
+		                	this.getRecetaStore().remove(record);
+		                	if(record.get('id')){
+			                    record.destroy();
+			                }
+		                }
+		            }, this);
+				}
 				break;
 		}
 	},
@@ -349,6 +388,19 @@ Ext.define('rewadmin.controller.Producto', {
 								if(success) {
 									var obj = Ext.decode(operation.response.responseText);
 									if(!obj.error) {
+										this.getRecetaStore().each(function(row){
+											//console.log(row.get('id'));
+											if(!row.get('id')){
+												row.save({
+													callback: function() {
+														if(!success) {
+															Ext.Msg.alert(rewadmin.AppGlobals.TITULO_MENSAJE, 'Ha ocurrido algun error al guardar la receta');
+														}
+													},
+													scope: this
+												});
+											}
+										})
 										if(!nuevo){
 											btn.up('window').close();
 										} else {

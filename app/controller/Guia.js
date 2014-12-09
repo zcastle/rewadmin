@@ -392,7 +392,7 @@ Ext.define('rewadmin.controller.Guia', {
 				    success: function(proveedor) {
 				        //var form = text.up('form');
 				        this.getForm().down('[name=txtComercial]').setValue(proveedor.get('nombre'));
-				        this.getForm().down('[name=cliente_proveedor_id]').setValue(proveedor.get('id'));
+				        this.getForm().down('[name=cliente_id]').setValue(proveedor.get('id'));
 				    },
 				    failure: function() {
 				    	Ext.Msg.alert(rewadmin.AppGlobals.TITULO_MENSAJE, 'RUC no encontrado');

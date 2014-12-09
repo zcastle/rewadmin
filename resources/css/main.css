@@ -161,6 +161,20 @@
 	text-align: center;
 }
 
+.rew-btn.x-item-disabled {
+	background: #ccc;
+	cursor: default;
+}
+
+.rew-btn.x-item-disabled:hover {
+	background: #ccc;
+	cursor: default;
+}
+
+.rew-btn.x-item-disabled:active {
+	border: none;
+}
+
 .rew-btn-small {
 	min-width: 30px;
 	min-height: 22px;

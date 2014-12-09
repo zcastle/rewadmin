@@ -218,7 +218,7 @@ Ext.define("rewadmin.view.mantenimiento.WinProductos", {
 		        header: 'Cantidad',
 		        dataIndex: 'cantidad',
 		        align: 'right',
-		        width: 60
+		        width: 55
 		    },{
 		    	header: 'U. Medida',
 		        dataIndex: 'unidad_name',

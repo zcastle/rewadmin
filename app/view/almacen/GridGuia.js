@@ -280,7 +280,7 @@ Ext.define('rewadmin.view.almacen.GridGuia' ,{
                         flex: 1
                     },{
                         xtype: 'hiddenfield',
-                        name: 'cliente_proveedor_id'
+                        name: 'cliente_id'
                     },{
                         xtype: 'button',
                         text: '+',
@@ -346,7 +346,7 @@ Ext.define('rewadmin.view.almacen.GridGuia' ,{
         layout: 'hbox',
         baseCls: 'totales',
         defaults: {
-            width: 130,
+            width: 120,
             labelWidth: 40,
             renderer: Ext.util.Format.numberRenderer(rewadmin.AppGlobals.FORMA_NUMBER)
         },
