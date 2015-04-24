@@ -57,7 +57,7 @@ Ext.define('rewadmin.view.Main', {
         //collapsed : false,
         //collapsible: true,
         border: false,
-        items: [{
+        items: [/*{
             xtype: 'button',
             name: 'btn-collapse',
             text: 'M E N U',
@@ -66,7 +66,7 @@ Ext.define('rewadmin.view.Main', {
             cls: 'btn-collapse',
             iconCls: 'ico-menu',
             iconAlign: 'right'
-        }/*,{
+        },{
             xtype: 'button',
             width: 150,
             border: false,
@@ -94,9 +94,8 @@ Ext.define('rewadmin.view.Main', {
                 }]
             },{
                 text: 'Almacenes',
-                iconCls: 'ico-menu',
                 menu: [{
-                    text: 'Guias',
+                    text: 'Guia de Almacen',
                     action: 'gridguia'
                 },{
                     text: 'Salida x dias de trabajo',
@@ -105,8 +104,13 @@ Ext.define('rewadmin.view.Main', {
                     text: 'Kardex'
                 }]
             },{
+                text: 'Produccion',
+                menu: [{
+                    text: 'Guia de Produccion',
+                    action: 'gridguiaproduccion'
+                }]
+            },{
                 text: 'Reportes',
-                iconCls: 'ico-menu',
                 menu: [{
                     text: 'Ventas',
                     action: 'winreporteventas',
@@ -119,8 +123,7 @@ Ext.define('rewadmin.view.Main', {
                     text: 'Documentos Anuladas'
                 }]
             },{
-                text: 'Usuarios',
-                iconCls: 'ico-menu'
+                text: 'Usuarios'
             }]
         },{
             xtype: 'tbfill',

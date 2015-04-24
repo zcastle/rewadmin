@@ -66,18 +66,19 @@ Ext.define('rewadmin.controller.Main', {
 		if (rewadmin.AppGlobals.DEBUG) {
 			rewadmin.AppGlobals.USUARIO = Ext.create('rewadmin.model.Usuario', {
 				id: 99,
-				nombres: 'Administrador',
+				nombres: 'ADMINISTRADOR',
 				apellidos: '',
-				usuario: 'root',
+				usuario: 'admin',
 				ubigeo_id: 1394,
 				centrocosto_id: 1,
 				rol_id: 1
 			});
 			viewport.getLayout().setActiveItem(1);
-			this.addTab('Guias', 'gridguia');
+			//this.addTab('Guias', 'gridguia');
 			//this.addTab('Productos', 'gridproductos');
 			//this.addTab('Categorias', 'gridcategorias');
 			//Ext.widget('winreporteventas').show();
+			this.addTab('Guia de Produccion', 'gridguiaproduccion');
 		}
 	},
 	onDataviewItemclick: function(view, record) {

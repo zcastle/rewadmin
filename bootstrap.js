@@ -858,6 +858,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "rewadmin.model.TipoOperacion": [],
   "rewadmin.model.Unidad": [],
   "rewadmin.model.UnidadProducto": [],
+  "rewadmin.model.UnidadType": [],
   "rewadmin.model.Usuario": [],
   "rewadmin.store.Almacen": [],
   "rewadmin.store.Categoria": [],
@@ -878,6 +879,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "rewadmin.store.Unidad": [],
   "rewadmin.store.UnidadBuscar": [],
   "rewadmin.store.UnidadProducto": [],
+  "rewadmin.store.UnidadType": [],
   "rewadmin.store.Usuario": [],
   "rewadmin.view.Dashboard": [],
   "rewadmin.view.LoginView": [],
@@ -1912,6 +1914,7 @@ Ext.ClassManager.addNameAliasMappings({
   "rewadmin.model.TipoOperacion": [],
   "rewadmin.model.Unidad": [],
   "rewadmin.model.UnidadProducto": [],
+  "rewadmin.model.UnidadType": [],
   "rewadmin.model.Usuario": [],
   "rewadmin.store.Almacen": [],
   "rewadmin.store.Categoria": [],
@@ -1932,6 +1935,7 @@ Ext.ClassManager.addNameAliasMappings({
   "rewadmin.store.Unidad": [],
   "rewadmin.store.UnidadBuscar": [],
   "rewadmin.store.UnidadProducto": [],
+  "rewadmin.store.UnidadType": [],
   "rewadmin.store.Usuario": [],
   "rewadmin.view.Dashboard": [
     "widget.dashboard"
