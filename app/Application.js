@@ -17,7 +17,7 @@ Ext.define('rewadmin.Application', {
         'almacen.WinUnidadesBuscar',
         'almacen.WinGuiaBuscar',
         'almacen.WinSalida',
-        'produccion.GridGuiaProduccion',
+        'produccion.GridOrdenProduccion',
         'reportes.WinReporte',
         'reportes.WinReporteVentas'
     ],
@@ -29,6 +29,7 @@ Ext.define('rewadmin.Application', {
         'Producto',
         'Categoria',
         'Guia',
+        'OrdenProduccion',
         'Salida',
         'ProductoBuscar',
         'UnidadBuscar',

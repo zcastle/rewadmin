@@ -106,8 +106,8 @@ Ext.define('rewadmin.view.Main', {
             },{
                 text: 'Produccion',
                 menu: [{
-                    text: 'Guia de Produccion',
-                    action: 'gridguiaproduccion'
+                    text: 'Orden de Produccion',
+                    action: 'gridordenproduccion'
                 }]
             },{
                 text: 'Reportes',

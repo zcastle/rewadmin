@@ -5,7 +5,7 @@ Ext.define('rewadmin.AppGlobals', {
     //HOST: 'http://pos.openbusiness.pe/services/',
     //HOST: 'http://10.10.10.20:2385/index.php/',
     //HOST: 'http://services.openbusiness.pe/',
-    DEBUG: true,
+    DEBUG: false,
     IGV: 18,
     TIPO_CAMBIO_COMPRA: 2.65,
     TIPO_CAMBIO_VENTA: 2.60,

@@ -78,7 +78,7 @@ Ext.define('rewadmin.controller.Main', {
 			//this.addTab('Productos', 'gridproductos');
 			//this.addTab('Categorias', 'gridcategorias');
 			//Ext.widget('winreporteventas').show();
-			this.addTab('Guia de Produccion', 'gridguiaproduccion');
+			this.addTab('Guia de Produccion', 'gridordenproduccion');
 		}
 	},
 	onDataviewItemclick: function(view, record) {

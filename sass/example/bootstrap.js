@@ -835,6 +835,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "rewadmin.controller.GuiaBuscar": [],
   "rewadmin.controller.Login": [],
   "rewadmin.controller.Main": [],
+  "rewadmin.controller.OrdenProduccion": [],
   "rewadmin.controller.Producto": [],
   "rewadmin.controller.ProductoBuscar": [],
   "rewadmin.controller.Salida": [],
@@ -850,6 +851,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "rewadmin.model.GuiaCabecera": [],
   "rewadmin.model.GuiaDetalle": [],
   "rewadmin.model.Launcher": [],
+  "rewadmin.model.OrdenProduccion": [],
+  "rewadmin.model.OrdenProduccionDetalle": [],
   "rewadmin.model.Producto": [],
   "rewadmin.model.Receta": [],
   "rewadmin.model.Resumen": [],
@@ -869,6 +872,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "rewadmin.store.GuiaDetalle": [],
   "rewadmin.store.Launcher": [],
   "rewadmin.store.Meses": [],
+  "rewadmin.store.OrdenProduccion": [],
+  "rewadmin.store.OrdenProduccionDetalle": [],
   "rewadmin.store.Producto": [],
   "rewadmin.store.ProductoBuscar": [],
   "rewadmin.store.Receta": [],
@@ -895,6 +900,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "rewadmin.view.mantenimiento.WinCategorias": [],
   "rewadmin.view.mantenimiento.WinInsumo": [],
   "rewadmin.view.mantenimiento.WinProductos": [],
+  "rewadmin.view.produccion.GridOrdenProduccion": [],
   "rewadmin.view.reportes.WinReporte": [],
   "rewadmin.view.reportes.WinReporteVentas": []
 });
@@ -1891,6 +1897,7 @@ Ext.ClassManager.addNameAliasMappings({
   "rewadmin.controller.GuiaBuscar": [],
   "rewadmin.controller.Login": [],
   "rewadmin.controller.Main": [],
+  "rewadmin.controller.OrdenProduccion": [],
   "rewadmin.controller.Producto": [],
   "rewadmin.controller.ProductoBuscar": [],
   "rewadmin.controller.Salida": [],
@@ -1906,6 +1913,8 @@ Ext.ClassManager.addNameAliasMappings({
   "rewadmin.model.GuiaCabecera": [],
   "rewadmin.model.GuiaDetalle": [],
   "rewadmin.model.Launcher": [],
+  "rewadmin.model.OrdenProduccion": [],
+  "rewadmin.model.OrdenProduccionDetalle": [],
   "rewadmin.model.Producto": [],
   "rewadmin.model.Receta": [],
   "rewadmin.model.Resumen": [],
@@ -1925,6 +1934,8 @@ Ext.ClassManager.addNameAliasMappings({
   "rewadmin.store.GuiaDetalle": [],
   "rewadmin.store.Launcher": [],
   "rewadmin.store.Meses": [],
+  "rewadmin.store.OrdenProduccion": [],
+  "rewadmin.store.OrdenProduccionDetalle": [],
   "rewadmin.store.Producto": [],
   "rewadmin.store.ProductoBuscar": [],
   "rewadmin.store.Receta": [],
@@ -1976,6 +1987,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "rewadmin.view.mantenimiento.WinProductos": [
     "widget.winproductos"
+  ],
+  "rewadmin.view.produccion.GridOrdenProduccion": [
+    "widget.gridordenproduccion"
   ],
   "rewadmin.view.reportes.WinReporte": [
     "widget.winreporte"
