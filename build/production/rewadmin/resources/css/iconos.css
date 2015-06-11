@@ -1,0 +1,16 @@
+/**/
+.ico-limpiar-small {
+	background-image: url('../images/limpiar-16x16.png') !important;
+}
+
+.ico-limpiar-medium {
+	background-image: url('../images/limpiar-24x24.png') !important;
+}
+
+.ico-limpiar-large {
+	background-image: url('../images/limpiar-32x32.png') !important;
+}
+
+.ico-menu {
+	background-image: url('../images/backspace-16.png') !important;
+}
