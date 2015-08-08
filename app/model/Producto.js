@@ -22,7 +22,9 @@ Ext.define('rewadmin.model.Producto', {
     {name: 'costo', type: 'float'}, 
     {name: 'costop', type: 'float', defaultValue: 0}, 
     'foto',
-    {name: 'unidad_id', persist: false}
+    {name: 'unidad_name', persist: false},
+    {name: 'unidad_id', persist: false},
+    {name: 'unidad_type', persist: false}
     ],
     proxy: {
         type: 'rest',

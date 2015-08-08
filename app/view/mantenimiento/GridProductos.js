@@ -5,7 +5,7 @@ Ext.define('rewadmin.view.mantenimiento.GridProductos' ,{
     columns: [{
         header: 'Codigo',    
         dataIndex: 'codigo',   
-        width: 70
+        width: 100
     },{
         header: 'Producto',
         dataIndex: 'nombre',
