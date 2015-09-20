@@ -1,16 +1,14 @@
 Ext.define('rewadmin.AppGlobals', {
     singleton: true,
     //HOST: 'http://192.168.1.6:2385/',
-<<<<<<< HEAD
-    HOST: 'http://10.10.10.2:8080/rewservices/',
-=======
+    //HOST: 'http://10.10.10.2:8080/rewservices/',
     //HOST: 'http://192.168.0.12/rewservices/',
-    HOST: 'http://192.168.0.12:2385/index.php/',
->>>>>>> 829421a7d903ef3244ecef0fd1c6aec533cb4e29
+    //HOST: 'http://192.168.0.12:2385/index.php/',
+    HOST: 'http://192.168.0.2:8080/rewservices/',
     //HOST: 'http://pos.openbusiness.pe/services/',
     //HOST: 'http://10.10.10.20:2385/index.php/',
     //HOST: 'http://services.openbusiness.pe/',
-    DEBUG: true,
+    DEBUG: false,
     IGV: 18,
     TIPO_CAMBIO_COMPRA: 2.65,
     TIPO_CAMBIO_VENTA: 2.60,
