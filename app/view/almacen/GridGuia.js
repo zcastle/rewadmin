@@ -136,14 +136,18 @@ Ext.define('rewadmin.view.almacen.GridGuia' ,{
     tbar: [{
         xtype: 'container',
         flex: 1,
-        layout: 'hbox',
+        layout: {
+            type: 'vbox',
+            align: 'stretch',
+            pack : 'start'
+        },
         items: [{
             xtype: 'form',
             id: 'frmCabeceraGuia',
             frame: true,
             border: false,
             style: 'border: 0;',
-            flex: 1,
+            //flex: 1,
             layout: {
                 type: 'hbox',
                 align: 'stretch',
@@ -261,11 +265,10 @@ Ext.define('rewadmin.view.almacen.GridGuia' ,{
                         xtype: 'textfield',
                         fieldLabel: 'Proveedor',
                         labelWidth: 70,
-                        name: 'txtRuc',
+                        name: 'cliente_ruc',
                         emptyText: 'RUC',
                         enableKeyEvents: true,
                         width: 165,
-                        //vtype: 'RUC',
                         maskRe : /^[0-9]$/,
                         maxLength: 11
                     },{
@@ -273,10 +276,8 @@ Ext.define('rewadmin.view.almacen.GridGuia' ,{
                         width: 5
                     },{
                         xtype: 'displayfield',
-                        name: 'txtComercial',
-                        style: {
-                            border: '1px solid #ccc'
-                        },
+                        name: 'cliente_name',
+                        style: {border: '1px solid #ccc'},
                         flex: 1
                     },{
                         xtype: 'hiddenfield',
@@ -318,6 +319,9 @@ Ext.define('rewadmin.view.almacen.GridGuia' ,{
                 emptyText: 'Observacion'
 
             }]
+        },{
+            xtype: 'label',
+            html: 'Nueva Linea [INSERT] - Eliminar Linea [SUPR]'
         }]
     }],
     bbar: [{

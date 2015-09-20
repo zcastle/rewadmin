@@ -29,8 +29,8 @@ Ext.define('rewadmin.controller.Guia', {
 			'gridguia button': {
 				click: this.onGridButtonClick
 			},
-			'gridguia textfield[name=txtRuc]': {
-				keypress: this.onKeyPressTxtRuc
+			'gridguia textfield[name=cliente_ruc]': {
+				keypress: this.onKeyPressClienteRuc
 			}
 		});
 	},
@@ -46,6 +46,19 @@ Ext.define('rewadmin.controller.Guia', {
 					recordSelected = record;
 				} else {
 					Ext.Msg.alert(rewadmin.AppGlobals.TITULO_MENSAJE, 'Ha ocurrido algun error al guardar el detalle');
+				}
+			},
+			scope: this
+		});
+    },
+    saveCabecera: function(record){
+    	record.save({
+			callback: function(record, operation, success) {
+				if(success) {
+					this.getForm().loadRecord(record);
+					this.insertaLinea(record.get('id'));
+				} else {
+					Ext.Msg.alert(rewadmin.AppGlobals.TITULO_MENSAJE, 'Ha ocurrido algun error al guardar la cabecera');
 				}
 			},
 			scope: this
@@ -67,21 +80,41 @@ Ext.define('rewadmin.controller.Guia', {
 		        	if(this.getForm().isValid()) {
 		        		var values = this.getForm().getValues();
 		        		var record = this.getForm().getRecord();
-		        		record.set(values);
+		        		var id;
+		        		if(values.id==undefined){
+		        			id = record.get('id');
+		        		}
 		        		if (this.getForm().down('datefield').isDisabled()) {
-		        			this.insertaLinea(values.id);
+		        			//console.log(id);
+		        			this.insertaLinea(id);
 		        		} else {
-		        			record.save({
-								callback: function(record, operation, success) {
-									if(success) {
-										this.getForm().loadRecord(record);
-										this.insertaLinea(record.get('id'));
-									} else {
-										Ext.Msg.alert(rewadmin.AppGlobals.TITULO_MENSAJE, 'Ha ocurrido algun error al guardar la cabecera');
-									}
-								},
-								scope: this
-							});
+		        			if(values.id!=undefined){
+			        			record.set(values);
+			        		}
+			        		console.log(record.get('id'));
+		        			if(record.get('id')){
+		        				this.saveCabecera(record);
+		        			}else{
+			        			Ext.Ajax.request({
+								    url: rewadmin.AppGlobals.HOST+'guia/cabecera/exist',
+								    params: {
+								        tipo_documento_id: values.tipo_documento_id,
+								        serie: values.serie,
+								        numero: values.numero,
+								        cliente_id: values.cliente_id
+								    },
+								    success: function(response){
+								    	var response = Ext.JSON.decode(response.responseText);
+								        if(response.error){
+											Ext.Msg.alert(rewadmin.AppGlobals.TITULO_MENSAJE, response.message);
+											this.getForm().down('[name=serie]').focus();
+										}else{
+											this.saveCabecera(record);
+										}
+								    },
+								    scope: this
+								});
+			        		}
 		        		}
 				    } else {
 				    	this.getForm().down('[name=serie]').focus();
@@ -111,7 +144,7 @@ Ext.define('rewadmin.controller.Guia', {
 	insertaLinea: function(id) {
 		this.bloquear(true);
 		var lastRecord = Ext.create('rewadmin.model.GuiaDetalle');
-    	this.getGuiaDetalleStore().each( function(record){
+    	this.getGuiaDetalleStore().each(function(record){
     		lastRecord = record;
     	}, this);
     	if(lastRecord.get('producto_codigo')!='' || this.getGuiaDetalleStore().count()==0) {
@@ -292,21 +325,12 @@ Ext.define('rewadmin.controller.Guia', {
         if(recordSelected.get('cantidad')=='') {
             recordSelected.set('cantidad', 1);
         }
-        //
-        var Unidad = Ext.ModelManager.getModel('rewadmin.model.Unidad');
-        Unidad.load('producto/'+record.get('id'), {
-            callback: function(record, operation, success) {
-                if(success) {
-                    recordSelected.set('unidad_name', record.get('mayor'));
-                    recordSelected.set('unidad_id', record.get('id'));
-                }
-            },
-            scope: this
-        });
-        //
+        recordSelected.set('unidad_name', record.get('unidad_name'));
+        recordSelected.set('unidad_id', record.get('unidad_id'));
+        recordSelected.set('unidad_type', record.get('unidad_type'));
+        console.log(recordSelected);
         this.saveDetalle(recordSelected);
-        //
-        this.rowEditing.startEdit(recordSelected, 3);
+		this.rowEditing.startEdit(recordSelected, 3);
     },
     calcular: function(recordSelected) {
     	var base = recordSelected.get('unitario')*recordSelected.get('cantidad');
@@ -360,6 +384,7 @@ Ext.define('rewadmin.controller.Guia', {
         	this.getGrid().setLoading('Buscando');
             Producto.load('codigo/'+value, {
                 callback: function(record, operation, success) {
+                	console.log(record);
                 	this.getGrid().setLoading(false);
                     if(success) {
                         this.calculoInicial(recordSelected, record);
@@ -384,15 +409,15 @@ Ext.define('rewadmin.controller.Guia', {
         recordSelected.set('unitario', text.getValue());
         this.calcular(recordSelected);
 	},
-	onKeyPressTxtRuc: function(text, e) {
+	onKeyPressClienteRuc: function(text, e) {
 		if(e.getKey()==e.ENTER && text.getValue()!=null){
 			if(new String(text.getValue()).length>=11) {
-				var Proveedor = Ext.ModelManager.getModel('rewadmin.model.Cliente');
-				Proveedor.load('ruc/'+text.getValue(), {
+				Ext.ModelManager.getModel('rewadmin.model.Cliente').load('ruc/'+text.getValue(), {
 				    success: function(proveedor) {
-				        //var form = text.up('form');
-				        this.getForm().down('[name=txtComercial]').setValue(proveedor.get('nombre'));
-				        this.getForm().down('[name=cliente_id]').setValue(proveedor.get('id'));
+				    	//console.log(proveedor);
+				    	this.getForm().down('[name=cliente_id]').setValue(proveedor.get('id'));
+				        this.getForm().down('[name=cliente_ruc]').setValue(proveedor.get('ruc'));
+				        this.getForm().down('[name=cliente_name]').setValue(proveedor.get('nombre'));
 				    },
 				    failure: function() {
 				    	Ext.Msg.alert(rewadmin.AppGlobals.TITULO_MENSAJE, 'RUC no encontrado');
@@ -437,6 +462,20 @@ Ext.define('rewadmin.controller.Guia', {
 		    scope: this,
 		    callback: function(records, operation, success) {
 		        this.getGuiaDetalleStore().proxy.url = urlOriginal;
+		        /*for(i in records){
+		        	console.log(records[i].get('id'));
+		        }*/
+				/*Ext.ModelManager.getModel('rewadmin.model.UnidadProducto').load(record.get('id'), {
+		            callback: function(record, operation, success) {
+		                if(success) {
+		                    recordSelected.set('unidad_name', record.get('nombre'));
+		                    recordSelected.set('unidad_id', record.get('id'));
+		                }
+		                this.saveDetalle(recordSelected);
+		        		this.rowEditing.startEdit(recordSelected, 3);
+		            },
+		            scope: this
+		        });*/
 		        win.close();
 		    }
 		});
@@ -451,7 +490,6 @@ Ext.define('rewadmin.controller.Guia', {
 				    url: rewadmin.AppGlobals.HOST+'guia/procesar/'+id,
 				    success: function(response){
 				        var text = response.responseText;
-				        console.log(text);
 				        this.setProcesado(true);
 				    },
 				    callback: function() {

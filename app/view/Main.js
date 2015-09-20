@@ -101,7 +101,8 @@ Ext.define('rewadmin.view.Main', {
                     text: 'Salida x dias de trabajo',
                     action: 'winsalida',
                 },{
-                    text: 'Kardex'
+                    text: 'Kardex',
+                    action: 'gridkardex',
                 }]
             },{
                 text: 'Produccion',
