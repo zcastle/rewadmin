@@ -76,7 +76,10 @@ Ext.define('rewadmin.view.Dashboard', {
                     return series.yField.substring(0, 3)+' '+Ext.util.Format.number(val, '0.00');
                 },
                 orientation: 'vertical',
-                color: '#fff'
+                color: '#fff'/*,
+                style: {
+                    fontSize: '3em'
+                }*/
             }
         }]
     }]

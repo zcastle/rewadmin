@@ -37,5 +37,6 @@ Ext.define('rewadmin.controller.Dashboard', {
 	},
 	onRecargar: function() {
 		this.getResumenStore().load();
+		this.getResumenSemanaStore().load();
 	}
 });
